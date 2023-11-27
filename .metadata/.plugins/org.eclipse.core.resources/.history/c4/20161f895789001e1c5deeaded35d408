@@ -1,0 +1,27 @@
+admin: ''
+application: ''
+boot: ''
+client: ''
+datasource: ''
+defaultZone: http://localhost:8761/eureka/
+dialect: org.hibernate.dialect.PostgreSQLDialect
+driverClassName: org.postgresql.Driver
+endpoints: ''
+eureka: ''
+exposure: ''
+hibernate: ''
+include: '''*'''
+jmx: ''
+jpa: ''
+management: ''
+name: user-api
+password: admin
+port: 8081
+properties: ''
+server: ''
+service-url: ''
+spring: ''
+url:
+- jdbc:postgresql://localhost:5432/kdb
+- 1111
+username: postgres

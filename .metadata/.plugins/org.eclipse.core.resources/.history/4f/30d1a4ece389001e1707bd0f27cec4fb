@@ -1,0 +1,20 @@
+package com.job_finder.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import com.job_finder.entity.UserDtls;
+
+public interface UserService {
+	List<UserDtls> getAllUsers();
+
+    Optional<UserDtls> getUserById(Long userId);
+
+    boolean createUser(UserDtls user);
+
+    UserDtls updateUser(Long userId, UserDtls updatedUser);
+
+    void deleteUser(Long userId);
+
+    Optional<UserDtls> getUserDetailsById(Long userId);
+}

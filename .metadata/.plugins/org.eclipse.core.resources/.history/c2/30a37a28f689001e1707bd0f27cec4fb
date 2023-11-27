@@ -1,0 +1,16 @@
+package com.job_finder.repository;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.job_finder.entity.UserDtls;
+
+public interface UserRepository extends JpaRepository<UserDtls, Long>{
+
+	UserDtls findByEmailId(String email);
+
+
+    Optional<UserDtls> findOneByEmailAndPassword(String email, String password);
+
+}

@@ -1,0 +1,79 @@
+package com.job_finder.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.job_finder.UserDtls;
+import com.job_finder.repository.UserRepository;
+
+@Service
+public class UserServiceImpl implements UserService{
+	 private final UserRepository userRepository;
+
+	    @Autowired
+	    public UserServiceImpl(UserRepository userRepository) {
+	        this.userRepository = userRepository;
+	    }
+
+	    @Override
+	    public List<UserDtls> getAllUsers() {
+	        return userRepository.findAll();
+	    }
+
+	    @Override
+	    public Optional<UserDtls> getUserById(Long userId) {
+	        return userRepository.findById(userId);
+	    }
+
+	    @Override
+	    public boolean createUser(UserDtls user) {
+	    	userRepository.save(user);
+	        return true;
+	    }
+
+	    @Override
+	    public UserDtls updateUser(Long userId, UserDtls updatedUser) {
+	        Optional<UserDtls> optionalUser = userRepository.findById(userId);
+	        if (optionalUser.isPresent()) {
+	            UserDtls existingUser = optionalUser.get();
+	            existingUser.setFullName(updatedUser.getFullName());
+	            existingUser.setEmailId(updatedUser.getEmailId());
+	            existingUser.setMobileNumber(updatedUser.getMobileNumber());
+	            existingUser.setUsername(updatedUser.getUsername());
+	            existingUser.setPassword(updatedUser.getPassword());
+	            existingUser.setDescription(updatedUser.getDescription());
+	            existingUser.setWorkStatus(updatedUser.getWorkStatus());
+	            existingUser.setResume(updatedUser.getResume());
+
+	            return userRepository.save(existingUser);
+	        } else {
+	            // Handle user not found
+	            return null;
+	        }
+	    }
+
+	    @Override
+	    public void deleteUser(Long userId) {
+	        userRepository.deleteById(userId);
+	    }
+
+	    @Override
+	    public Optional<UserDtls> getUserDetailsById(Long userId) {
+	        Optional<UserDtls> optionalUser = userRepository.findById(userId);
+
+	        return optionalUser.map(user -> {
+	            UserDtls userDtls = new UserDtls();
+	            userDtls.setFullName(user.getFullName());
+	            userDtls.setEmailId(user.getEmailId());
+	            userDtls.setMobileNumber(user.getMobileNumber());
+	            userDtls.setUsername(user.getUsername());
+	            userDtls.setDescription(user.getDescription());
+	            userDtls.setWorkStatus(user.getWorkStatus());
+	            return userDtls;
+	        });
+	    }
+
+}
